@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1035760053437",
+    "project_id": "trave-catalog-app",
+    "storage_bucket": "trave-catalog-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035760053437:android:df5f4000d8a40448b75bd4",
+        "android_client_info": {
+          "package_name": "com.example.travelcatalogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035760053437-en6al60c5r35f39jrp32dn3fsiq0er0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKPTTfCBORbZ4ovJFIvcoxTI1CFkQR1Kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035760053437-en6al60c5r35f39jrp32dn3fsiq0er0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

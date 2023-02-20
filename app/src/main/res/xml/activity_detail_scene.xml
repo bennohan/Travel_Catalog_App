@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="1000">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/iv_place" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/iv_place" />
+            <KeyAttribute
+                android:scaleX="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/iv_place" />
+            <KeyAttribute
+                android:scaleY="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/iv_place" />
+        </KeyFrameSet>
+        <OnSwipe
+            app:touchAnchorId="@id/iv_place"
+            app:touchAnchorSide="bottom"/>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+<!--        <Constraint android:id="@+id/iv_place" -->
+            />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+<!--        <Constraint android:id="@id/iv_place" -->
+            />
+        <Constraint
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:id="@+id/iv_place"/>
+    </ConstraintSet>
+
+</MotionScene>

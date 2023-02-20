@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.travelcatalogapp.data.User" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/et_inputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:text='@{data.name}'
+            android:hint="Edit Name Here.."
+            android:padding="@dimen/_4sdp" />
+
+        <EditText
+            android:id="@+id/et_inputPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:text='@{data.phoneNumber}'
+            android:hint="Edit Phone Here.."
+            android:padding="@dimen/_4sdp" />
+
+    </LinearLayout>
+</layout>
