@@ -1,6 +1,7 @@
 package com.example.travelcatalogapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -35,19 +36,23 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 //    private var tourAll = ArrayList<Tour?>()
 
 
+    override fun onStart() {
+        val user = session.getUser()
+        if (user != null) {
+            binding.user = user
+        }
+        super.onStart()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val imageList = ArrayList<SlideModel>()
+        val user = session.getUser()
 
         observe()
         getTourList()
         getImage()
 
-
-        val user = session.getUser()
-        if (user != null) {
-            binding.user = user
-        }
 
 //        //SearchView Function
 //        binding?.searchView?.doOnTextChanged { text, start, before, count ->
@@ -103,7 +108,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         //Button View All
         binding.tvViewAll.setOnClickListener {
             openActivity<ListActivity>{
-                putExtra(Cons.CATEGORY.ID,3)
+                putExtra(Cons.CATEGORY.ID,4)
             }
         }
 
@@ -140,15 +145,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
     }
 
-//     fun onQueryTextSubmit(query: String?): Boolean {
-//        return true
-//    }
-//
-//
-//     fun onQueryTextChange(newText: String?): Boolean {
-//        Log.d("Keyword", "$newText")
-//        return false
-//    }
+     fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+
+     fun onQueryTextChange(newText: String?): Boolean {
+        Log.d("Keyword", "$newText")
+        return false
+    }
 
     //Get Note Function
     private fun getTourList() {

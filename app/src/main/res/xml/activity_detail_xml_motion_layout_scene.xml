@@ -9,22 +9,63 @@
         app:constraintSetStart="@+id/start"
         app:duration="1000">
         <KeyFrameSet>
+
             <KeyAttribute
                 android:alpha="0"
                 app:framePosition="100"
                 app:motionTarget="@+id/iv_place" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_back" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_fav" />
+
+
             <KeyAttribute
                 android:alpha="0"
                 app:framePosition="50"
                 app:motionTarget="@+id/iv_place" />
             <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/btn_back" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/btn_fav" />
+
+
+            <KeyAttribute
                 android:scaleX="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/iv_place" />
+            <KeyAttribute
+                android:scaleX="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_back" />
+            <KeyAttribute
+                android:scaleX="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_fav" />
+
+
+            <KeyAttribute
+                android:scaleY="0"
                 app:framePosition="100"
                 app:motionTarget="@+id/iv_place" />
             <KeyAttribute
                 android:scaleY="0"
                 app:framePosition="100"
-                app:motionTarget="@+id/iv_place" />
+                app:motionTarget="@+id/btn_back" />
+            <KeyAttribute
+                android:scaleY="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_fav" />
+
+
         </KeyFrameSet>
         <OnSwipe
             app:touchAnchorId="@id/iv_place"
@@ -47,5 +88,13 @@
             android:layout_height="1dp"
             android:layout_width="match_parent"
             android:id="@+id/iv_place"/>
+        <Constraint
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:id="@+id/btn_back"/>
+        <Constraint
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:id="@+id/btn_fav"/>
     </ConstraintSet>
 </MotionScene>

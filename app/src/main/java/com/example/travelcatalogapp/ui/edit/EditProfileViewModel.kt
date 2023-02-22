@@ -1,11 +1,14 @@
 package com.example.travelcatalogapp.ui.edit
 
 import androidx.lifecycle.viewModelScope
+import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
+import com.crocodic.core.extension.toObject
 import com.example.travelcatalogapp.api.ApiService
 import com.example.travelcatalogapp.base.BaseViewModel
 import com.example.travelcatalogapp.data.Session
+import com.example.travelcatalogapp.data.User
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -27,7 +30,10 @@ class EditProfileViewModel @Inject constructor(
         ApiObserver({ apiService.userUpdate(method, name, phone) },
             false, object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
+                    val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
                     _apiResponse.send(ApiResponse().responseSuccess("Profile Updated"))
+                    session.saveUser(data)
+
                 }
 
                 override suspend fun onError(response: ApiResponse) {
@@ -45,7 +51,9 @@ class EditProfileViewModel @Inject constructor(
             ApiObserver({ apiService.userUpdateWithPhoto(method, name, phone, filePart) },
                 false, object : ApiObserver.ResponseListener {
                     override suspend fun onSuccess(response: JSONObject) {
-                        _apiResponse.send(ApiResponse().responseSuccess("Profile Updated"))
+                        val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
+                        _apiResponse.send(ApiResponse().responseSuccess("Profile Picture Updated"))
+                        session.saveUser(data)
                     }
 
                     override suspend fun onError(response: ApiResponse) {

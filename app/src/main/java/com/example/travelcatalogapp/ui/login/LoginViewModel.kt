@@ -4,8 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
-import com.crocodic.core.api.ApiStatus
-import com.crocodic.core.data.CoreSession
 import com.crocodic.core.extension.toObject
 import com.example.travelcatalogapp.api.ApiService
 import com.example.travelcatalogapp.base.BaseViewModel
@@ -28,11 +26,11 @@ class LoginViewModel
 
     //Login Function
     fun login(
-        email: String,
+        phone: String,
         password: String,
     ) = viewModelScope.launch {
 //        _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver({ apiService.login(email, password) },
+        ApiObserver({ apiService.login(phone, password) },
             false, object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)

@@ -64,9 +64,13 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
             }
             3 -> {
-                getTourListAll()
+                viewModel.tourListAll()
                 binding.tvCategory.text = "All"
 
+            }
+            4 -> {
+                viewModel.tourListRec()
+                binding.tvCategory.text = "Recomendation"
             }
         }
 

@@ -155,12 +155,12 @@ class EditProfileActivity :
             }
             viewModel.updateUser(name, phone, "put")
 
-        }else {
+        } else {
             lifecycleScope.launch {
                 val compressesFile = compressFile(filePhoto!!)
                 Log.d("Compress", "File: $compressesFile")
                 if (compressesFile != null) {
-                    viewModel.updateUserWithPhoto(name,phone,"put", compressesFile)
+                    viewModel.updateUserWithPhoto(name, phone, "put", compressesFile)
                 }
             }
         }

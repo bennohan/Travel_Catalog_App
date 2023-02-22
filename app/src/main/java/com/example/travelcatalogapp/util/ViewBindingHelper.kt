@@ -18,6 +18,7 @@ class ViewBindingHelper {
                     .with(view.context)
                     .load(imageUrl)
                     .placeholder(R.drawable.placeholder)
+//                    .apply(RequestOptions.circleCropTransform())
 //                    .error(R.drawable.error)
                     .into(view)
 

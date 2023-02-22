@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
-import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.extension.toList
 import com.example.travelcatalogapp.api.ApiService
 import com.example.travelcatalogapp.base.BaseViewModel
@@ -29,22 +28,6 @@ class HomeViewModel
     var image = MutableLiveData<List<ImageSlide>>()
 
     //tour list Function
-    fun listTour() = viewModelScope.launch {
-        _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver({apiService.tourList()},
-        false , object : ApiObserver.ResponseListener{
-                override suspend fun onSuccess(response: JSONObject) {
-                    val data = response.getJSONArray(ApiCode.DATA).toList<Tour>(gson)
-                    tour.postValue(data)
-                }
-
-                override suspend fun onError(response: ApiResponse) {
-                    super.onError(response)
-                }
-        })
-    }
-
-
     fun tourList() = viewModelScope.launch {
         ApiObserver({ apiService.tourList()},false, object : ApiObserver.ResponseListener{
             override suspend fun onSuccess(response: JSONObject) {
@@ -62,6 +45,7 @@ class HomeViewModel
         })
     }
 
+    //Function Image Slider
     fun imageSlider() = viewModelScope.launch {
         ApiObserver({ apiService.imageSlider()},false, object : ApiObserver.ResponseListener{
             override suspend fun onSuccess(response: JSONObject) {
