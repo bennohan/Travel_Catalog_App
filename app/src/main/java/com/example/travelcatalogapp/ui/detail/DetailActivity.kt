@@ -1,5 +1,7 @@
 package com.example.travelcatalogapp.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import com.example.travelcatalogapp.R
@@ -23,6 +25,7 @@ class DetailActivity :
         super.onCreate(savedInstanceState)
         binding.mapView.onCreate(savedInstanceState)
 
+
         maplocation()
 
         //Reciving TourData
@@ -32,6 +35,9 @@ class DetailActivity :
         //Button Back
         binding.btnBack.setOnClickListener {
             onBackPressed()
+        }
+        binding.btnRoute.setOnClickListener {
+            sendLocationIntent()
         }
     }
 
@@ -61,6 +67,7 @@ class DetailActivity :
 
     }
 
+    //get Location Mapview
     private fun maplocation() {
         binding.mapView.getMapAsync { map ->
             val lat = tour?.latitude?.toDouble()
@@ -80,4 +87,13 @@ class DetailActivity :
 
         }
     }
+
+    //Sending location to Open Google Maps
+    private fun sendLocationIntent(){
+        val intentUri = Uri.parse("geo:${tour?.latitude},${tour?.longitude}")
+        val mapIntent = Intent(Intent.ACTION_VIEW,intentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        startActivity(mapIntent)
+    }
+
 }

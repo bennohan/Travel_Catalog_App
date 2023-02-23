@@ -35,7 +35,6 @@ class HomeViewModel
                 if (status == ApiCode.SUCCESS){
 
                     val data = response.getJSONArray(ApiCode.DATA).toList<Tour>(gson)
-
                     tour.postValue(data)
 
                 } else {

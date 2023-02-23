@@ -2,18 +2,19 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.example.travelcatalogapp.data.Tour" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_90sdp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_85sdp"
+        android:layout_margin="@dimen/_8sdp"
         android:padding="@dimen/_12sdp"
-        android:layout_margin="@dimen/_8sdp">
+        app:cardCornerRadius="@dimen/_20sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,20 +22,21 @@
             android:orientation="vertical">
 
             <ImageView
+                imageUrl='@{data.image}'
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:scaleType="centerCrop"
-                imageUrl='@{data.image}'/>
+                android:layout_height="@dimen/_50sdp"
+                android:scaleType="centerCrop" />
 
             <TextView
-                android:layout_margin="@dimen/_8sdp"
-                android:textSize="@dimen/_12sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                tools:text="Nama Tempat"
                 android:layout_gravity="center"
-                android:text='@{data.name}'/>
+                android:layout_margin="@dimen/_8sdp"
+                android:maxLines="1"
+                android:text='@{data.name}'
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                tools:text="Pantai Parangtritis" />
 
 
         </LinearLayout>

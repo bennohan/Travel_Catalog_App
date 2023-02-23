@@ -66,7 +66,10 @@ interface ApiService {
     @GET("api/category-detail/3")
     suspend fun tourCategoryAll() : String
 
-
-
+    @FormUrlEncoded
+    @POST("api/add-favourite")
+    suspend fun postFavourite(
+        @Field("tour_id")tour_id : Int?
+    ) : String
 
 }

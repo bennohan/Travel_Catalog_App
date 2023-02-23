@@ -2,6 +2,8 @@ package com.example.travelcatalogapp.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -27,13 +29,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home) {
+class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home),
+SearchView.OnQueryTextListener{
 
     @Inject
     lateinit var session: Session
 
     private var tour = ArrayList<Tour?>()
-//    private var tourAll = ArrayList<Tour?>()
+    private var tourAll = ArrayList<Tour?>()
 
 
     override fun onStart() {
@@ -54,31 +57,29 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         getImage()
 
 
-//        //SearchView Function
-//        binding?.searchView?.doOnTextChanged { text, start, before, count ->
-//            if (text!!.isNotEmpty()) {
-//                val filter = tourAll.filter { it?.name?.contains("$text", true) == true }
-////                val filteringData =
-////                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
-//                Log.d("CekFilter", "Keyword $text Data : $filter")
-//                tour.clear()
-////                note.addAll(filter)
-//                filter.forEach {
-//                    tour.add(it)
-//                }
-////                binding?.rvNote?.adapter?.notifyDataSetChanged()
-//                binding?.rvHome?.adapter?.notifyItemInserted(0)
-//
-//            }
-//            //            else {
-////                note.clear()
-////                binding?.rvNote?.adapter?.notifyDataSetChanged()
-////                note.addAll(noteAll)
-////                Log.d("ceknoteall", "noteall : $noteAll")
-////                binding?.rvNote?.adapter?.notifyItemInserted(0)
-////            }
-//        }
+//SearchView Function
+        binding?.searchView?.doOnTextChanged { text, start, before, count ->
+            if (text!!.isNotEmpty()) {
+                val filter = tourAll.filter { it?.name?.contains("$text", true) == true }
+//                val filteringData =
+//                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
+                Log.d("CekFilter", "Keyword $text Data : $filter")
+                tour.clear()
+//                note.addAll(filter)
+                filter.forEach {
+                    tour.add(it)
+                }
+                binding?.rvHome?.adapter?.notifyDataSetChanged()
+                binding?.rvHome?.adapter?.notifyItemInserted(0)
 
+            } else {
+                tour.clear()
+                binding?.rvHome?.adapter?.notifyDataSetChanged()
+                tour.addAll(tourAll)
+                Log.d("ceknoteall", "noteall : $tourAll")
+                binding?.rvHome?.adapter?.notifyItemInserted(0)
+            }
+        }
         //Button Image View
         binding.ivProfile.setOnClickListener {
             openActivity<ProfileActivity>()
@@ -86,29 +87,29 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
         //Button Category Nature
         binding.btnNature.setOnClickListener {
-            openActivity<ListActivity>{
-                putExtra(Cons.CATEGORY.ID,1)
+            openActivity<ListActivity> {
+                putExtra(Cons.CATEGORY.ID, 1)
             }
         }
 
 
         //Button Category Park
         binding.btnPark.setOnClickListener {
-            openActivity<ListActivity>{
-                putExtra(Cons.CATEGORY.ID,2)
+            openActivity<ListActivity> {
+                putExtra(Cons.CATEGORY.ID, 2)
             }
         }
         //Button Category All
         binding.btnAll.setOnClickListener {
             openActivity<ListActivity> {
-                putExtra(Cons.CATEGORY.ID,3)
+                putExtra(Cons.CATEGORY.ID, 3)
             }
         }
 
         //Button View All
         binding.tvViewAll.setOnClickListener {
-            openActivity<ListActivity>{
-                putExtra(Cons.CATEGORY.ID,4)
+            openActivity<ListActivity> {
+                putExtra(Cons.CATEGORY.ID, 4)
             }
         }
 
@@ -134,7 +135,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     getTourList()
                 }
@@ -142,15 +143,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         }
 
 
-
     }
 
-     fun onQueryTextSubmit(query: String?): Boolean {
+    override fun onQueryTextSubmit(query: String?): Boolean {
         return true
     }
 
 
-     fun onQueryTextChange(newText: String?): Boolean {
+    override fun onQueryTextChange(newText: String?): Boolean {
         Log.d("Keyword", "$newText")
         return false
     }
@@ -160,29 +160,34 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         viewModel.tourList()
     }
 
-    private fun observe(){
-        viewModel.tour.observe(this){
+    private fun observe() {
+        viewModel.tour.observe(this) {
+            //Before i gave this the data is empty
+            tour.clear()
+            tourAll.clear()
+
             tour.addAll(it)
-            binding.rvHome.adapter?.notifyDataSetChanged()
+            tourAll.addAll(it)
+            binding?.rvHome?.adapter?.notifyDataSetChanged()
+            binding?.rvHome?.adapter?.notifyItemInserted(0)
         }
 
-        viewModel.image.observe(this){
+        viewModel.image.observe(this) {
             initSlider(it)
         }
     }
 
-    fun getImage(){
+    fun getImage() {
         viewModel.imageSlider()
     }
 
     private fun initSlider(data: List<ImageSlide>) {
         val imageList = ArrayList<SlideModel>()
-        data.forEach{
+        data.forEach {
             imageList.add(SlideModel(it.image))
         }
-        binding.imageSlider.setImageList(imageList,ScaleTypes.CENTER_CROP)
+        binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }
-
 
 
 }

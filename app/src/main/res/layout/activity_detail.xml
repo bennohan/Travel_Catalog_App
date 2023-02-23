@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         app:layoutDescription="@xml/activity_detail_xml_motion_layout_scene"
         tools:context=".ui.detail.DetailActivity"
-        android:background="@drawable/detail_backround">
+        android:background="@drawable/layout_border">
 
 
         <ImageView
@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             imageUrl='@{data.image}'
+            app:layout_constraintBottom_toTopOf="@id/tv_placeName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -55,6 +56,7 @@
 <!--            android:background="@color/black"-->
 <!--            app:layout_constraintBottom_toTopOf="@id/textView"-->
 <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
 
 
         <TextView
