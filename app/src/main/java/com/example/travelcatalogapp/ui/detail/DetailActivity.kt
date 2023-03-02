@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
+import com.crocodic.core.extension.tos
 import com.example.travelcatalogapp.R
 import com.example.travelcatalogapp.base.BaseActivity
 import com.example.travelcatalogapp.data.Cons
@@ -39,6 +41,23 @@ class DetailActivity :
         binding.btnRoute.setOnClickListener {
             sendLocationIntent()
         }
+
+        binding.btnFav.setOnClickListener {
+            tos("Tour Liked")
+            val tourId = tour?.id
+            if (tourId != null) {
+                viewModel.favouriteTour(tourId)
+            }
+        }
+
+        binding.btnUnfav.setOnClickListener {
+            tos("Tour Unliked")
+            val tourId = tour?.id
+            if (tourId != null) {
+                viewModel.favouriteTour(tourId)
+            }
+        }
+
     }
 
     override fun onResume() {
@@ -73,9 +92,9 @@ class DetailActivity :
             val lat = tour?.latitude?.toDouble()
             val long = tour?.longitude?.toDouble()
 
-            if (lat != null && long !=null){
-                val locationDestination = LatLng(lat,long)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationDestination,15f))
+            if (lat != null && long != null) {
+                val locationDestination = LatLng(lat, long)
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationDestination, 15f))
                 map.addMarker(
                     MarkerOptions()
                         .position(locationDestination)
@@ -84,16 +103,27 @@ class DetailActivity :
             }
 
 
+        }
+    }
+
+    private fun initialButtonLike() {
+        if (tour?.like?.equals("true") == true) {
+            binding.btnFav.visibility = View.GONE
+            binding.btnUnfav.visibility = View.VISIBLE
+        }else{
+            binding.btnFav.visibility = View.VISIBLE
+            binding.btnUnfav.visibility = View.GONE
 
         }
     }
 
     //Sending location to Open Google Maps
-    private fun sendLocationIntent(){
-        val intentUri = Uri.parse("geo:${tour?.latitude},${tour?.longitude}")
-        val mapIntent = Intent(Intent.ACTION_VIEW,intentUri)
+    private fun sendLocationIntent() {
+        val intentUri = Uri.parse("google.navigation:q=${tour?.name}&mode=d")
+        val mapIntent = Intent(Intent.ACTION_VIEW, intentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         startActivity(mapIntent)
     }
+
 
 }

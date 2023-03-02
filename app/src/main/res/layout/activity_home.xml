@@ -8,6 +8,7 @@
         <variable
             name="user"
             type="com.example.travelcatalogapp.data.User" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,24 +73,13 @@
             android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_24sdp"
-            android:drawableStart="@drawable/ic_baseline_search_24"
             android:background="@drawable/edittext_border"
-            android:textColorHint="#2E2E2E"
+            android:drawableStart="@drawable/ic_baseline_search_24"
             android:hint="Search Your Destination"
             android:maxLines="1"
             android:paddingStart="@dimen/_8sdp"
+            android:textColorHint="#2E2E2E"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-
-        <!--        <SearchView-->
-        <!--            android:id="@+id/searchView"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="@dimen/_30sdp"-->
-        <!--            android:layout_marginStart="@dimen/_24sdp"-->
-        <!--            android:layout_marginEnd="@dimen/_24sdp"-->
-        <!--            android:layout_marginTop="@dimen/_10sdp"-->
-        <!--            android:background="@drawable/edittext_border"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"/>-->
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/imageSlider"
@@ -235,6 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
+            android:background="#F1F1F1"
             android:orientation="horizontal"
             android:padding="@dimen/_8sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -247,6 +238,17 @@
             tools:itemCount="10"
             tools:listitem="@layout/item_home" />
 
+        <TextView
+            android:id="@+id/tv_DataKosong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:text="Pencarian Tidak Tersedia"
+            android:textSize="@dimen/_20sdp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_home" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

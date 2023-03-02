@@ -24,9 +24,52 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observe()
+        adapter()
+        getData()
+
+        binding.swipelayout.setOnRefreshListener {
+            getData()
+            observe()
+            adapter()
+        }
 
 
-        //Ask About Holder
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        getData()
+
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    private fun getData() {
+        when (intent.getIntExtra(Cons.CATEGORY.ID, 0)) {
+            1 -> {
+                tourNature()
+                binding.tvCategory.text = "Nature"
+            }
+            2 -> {
+                tourPark()
+                binding.tvCategory.text = "Park "
+
+            }
+            3 -> {
+                tourAll()
+                binding.tvCategory.text = "All"
+
+            }
+            4 -> {
+                tourRec()
+                binding.tvCategory.text = "Recomendation"
+            }
+        }
+    }
+
+    private fun adapter() {
         binding.rvList.adapter =
             object : CoreListAdapter<ListItemBinding, Tour>(R.layout.list_item) {
                 override fun onBindViewHolder(
@@ -36,52 +79,22 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
                     val data = tour[position]
                     holder.binding.data = data
 
+//                    holder.binding.ivFavourite.isVisible = data?.like == true
+
+//                    val like = tourclass?.like
+//                    when (like){
+//                        true -> holder.binding.ivFavourite.visibility
+//                        else -> holder.binding.ivFavourite.isInvisible
+//                    }
+
                     holder.binding.btnDetail.setOnClickListener {
                         openActivity<DetailActivity> {
-                            putExtra(Cons.TOUR.TOUR,data)
+                            putExtra(Cons.TOUR.TOUR, data)
 
                         }
                     }
                 }
             }.initItem(tour)
-
-
-        binding.btnBack.setOnClickListener {
-            onBackPressed()
-        }
-
-        observe()
-
-        val id = intent.getIntExtra(Cons.CATEGORY.ID, 0)
-        when (id) {
-            1 -> {
-                viewModel.tourListNature()
-                binding.tvCategory.text = "Nature"
-            }
-            2 -> {
-                viewModel.tourListPark()
-                binding.tvCategory.text = "Park "
-
-            }
-            3 -> {
-                viewModel.tourListAll()
-                binding.tvCategory.text = "All"
-
-            }
-            4 -> {
-                viewModel.tourListRec()
-                binding.tvCategory.text = "Recomendation"
-            }
-        }
-
-
-        binding.btnBack.setOnClickListener {
-            onBackPressed()
-        }
-    }
-
-    private fun getTourListAll() {
-        viewModel.tourListAll()
     }
 
     private fun observe() {
@@ -89,11 +102,12 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.tour.observe(this@ListActivity) {
+                        binding.swipelayout.isRefreshing = false
+                        tour.clear()
                         tour.addAll(it)
                         binding.rvList.adapter?.notifyDataSetChanged()
                         Log.d("cel adapter", "list tour : $tour")
                         Log.d("cek adapter", "check it : $it")
-
                     }
                 }
             }
@@ -101,4 +115,19 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
     }
 
+    private fun tourNature() {
+        viewModel.tourListNature()
+    }
+
+    private fun tourPark() {
+        viewModel.tourListPark()
+    }
+
+    private fun tourAll() {
+        viewModel.tourListAll()
+    }
+
+    private fun tourRec() {
+        viewModel.tourListRec()
+    }
 }

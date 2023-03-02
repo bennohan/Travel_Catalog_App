@@ -1,6 +1,5 @@
 package com.example.travelcatalogapp.ui.splash
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,7 +7,6 @@ import com.crocodic.core.extension.openActivity
 import com.example.travelcatalogapp.R
 import com.example.travelcatalogapp.base.BaseActivity
 import com.example.travelcatalogapp.data.Session
-import com.example.travelcatalogapp.data.User
 import com.example.travelcatalogapp.databinding.ActivityMainBinding
 import com.example.travelcatalogapp.ui.home.HomeActivity
 import com.example.travelcatalogapp.ui.login.LoginActivity
@@ -32,5 +30,6 @@ class MainActivity :BaseActivity<ActivityMainBinding , MainViewModel>(R.layout.a
                 openActivity<HomeActivity>()
             }
         },4000)
+
     }
 }

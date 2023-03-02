@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="data"
+            name="user"
             type="com.example.travelcatalogapp.data.User" />
     </data>
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:text='@{data.name}'
+            android:text='@{user.name}'
             android:hint="Edit Name Here.."
             android:padding="@dimen/_4sdp" />
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:text='@{data.phoneNumber}'
+            android:text='@{user.phoneNumber}'
             android:hint="Edit Phone Here.."
             android:padding="@dimen/_4sdp" />
 

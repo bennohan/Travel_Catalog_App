@@ -24,7 +24,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.extension.openActivity
 import com.crocodic.core.extension.snacked
@@ -71,11 +70,7 @@ class EditProfileActivity :
             binding.user = user
         }
 
-        //Preview Image Profile
-        Glide
-            .with(this)
-            .load(user?.image)
-            .into(binding.ivPhoto)
+
 
         //Button Back
         binding.ivBack.setOnClickListener {
@@ -97,7 +92,6 @@ class EditProfileActivity :
         }
 
         binding.ivPhoto.setOnClickListener {
-            tos("button work")
             if (checkPermissionGallery()) {
                 openGallery()
             } else {
@@ -182,6 +176,8 @@ class EditProfileActivity :
             // send data from the AlertDialog to the Activity
             val editTextName = customLayout.findViewById<EditText>(R.id.et_inputName)
             val editTextPhone = customLayout.findViewById<EditText>(R.id.et_inputPhone)
+            editTextName.setText(session.getUser()?.name)
+            editTextPhone.setText(session.getUser()?.phoneNumber)
             sendDialogDataToActivityName(editTextName.text.toString())
             sendDialogDataToActivityPhone(editTextPhone.text.toString())
 

@@ -57,6 +57,12 @@ interface ApiService {
     @POST("api/auth-logout")
     suspend fun logout() : String
 
+    @GET("api/category-detail/{tour_id}")
+    suspend fun tourCategory(
+        @Path("tour_id")tour_id : Int?
+    ) : String
+
+
     @GET("api/category-detail/1")
     suspend fun tourCategoryNature() : String
 

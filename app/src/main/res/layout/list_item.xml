@@ -8,6 +8,9 @@
         <variable
             name="data"
             type="com.example.travelcatalogapp.data.Tour" />
+
+        <import type="android.view.View"/>
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -16,7 +19,6 @@
         android:layout_margin="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_20sdp"
         android:orientation="vertical">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -67,6 +69,7 @@
                 android:layout_marginTop="28dp"
                 android:text='@{data.address}'
                 android:textSize="@dimen/_12sdp"
+                android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -89,6 +92,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView6"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/iv_favourite"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility='@{data.like ? View.VISIBLE : View.GONE}'
+                android:src="@drawable/ic_baseline_favorite_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

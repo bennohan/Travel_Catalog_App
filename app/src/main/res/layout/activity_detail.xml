@@ -4,25 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.example.travelcatalogapp.data.Tour" />
+
+        <import type="android.view.View" />
+
+
     </data>
+
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/layout_border"
         app:layoutDescription="@xml/activity_detail_xml_motion_layout_scene"
-        tools:context=".ui.detail.DetailActivity"
-        android:background="@drawable/layout_border">
+        tools:context=".ui.detail.DetailActivity">
 
 
         <ImageView
             android:id="@+id/iv_place"
+            imageUrl='@{data.image}'
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            imageUrl='@{data.image}'
             app:layout_constraintBottom_toTopOf="@id/tv_placeName"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,18 +51,21 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:src="@drawable/ic_baseline_favorite_24"
+            android:visibility='@{data.like ? View.GONE : View.VISIBLE}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <View-->
-<!--            android:id="@+id/line_split1"-->
-<!--            android:layout_width="@dimen/_100sdp"-->
-<!--            android:layout_height="4dp"-->
-<!--            android:layout_marginBottom="@dimen/_10sdp"-->
-<!--            android:background="@color/black"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/textView"-->
-<!--            app:layout_constraintStart_toStartOf="parent" />-->
-
+        <ImageButton
+            android:id="@+id/btn_unfav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:visibility='@{data.like ? View.VISIBLE : View.GONE}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -64,13 +73,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_20sdp"
-            tools:text="Place"
             android:text='@{data.name}'
             android:textColor="@color/black"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_place" />
+            app:layout_constraintTop_toBottomOf="@id/iv_place"
+            tools:text="Place" />
 
         <ImageView
             android:id="@+id/iv_pointer"
@@ -117,13 +126,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            tools:text="This Place can  make you
-to get the adrenaline going"
             android:text='@{data.information}'
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/information" />
+            app:layout_constraintTop_toBottomOf="@+id/information"
+            tools:text="This Place can  make you
+to get the adrenaline going" />
 
         <TextView
             android:id="@+id/location"
@@ -143,10 +152,10 @@ to get the adrenaline going"
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_190sdp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location" />
 
         <Button
             android:id="@+id/btn_route"

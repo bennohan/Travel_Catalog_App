@@ -22,6 +22,11 @@
                 android:alpha="0"
                 app:framePosition="100"
                 app:motionTarget="@+id/btn_fav" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_unfav" />
+
 
 
             <KeyAttribute
@@ -36,6 +41,11 @@
                 android:alpha="0"
                 app:framePosition="50"
                 app:motionTarget="@+id/btn_fav" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/btn_unfav" />
+
 
 
             <KeyAttribute
@@ -50,6 +60,10 @@
                 android:scaleX="0"
                 app:framePosition="100"
                 app:motionTarget="@+id/btn_fav" />
+            <KeyAttribute
+                android:scaleX="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_unfav" />
 
 
             <KeyAttribute
@@ -64,6 +78,10 @@
                 android:scaleY="0"
                 app:framePosition="100"
                 app:motionTarget="@+id/btn_fav" />
+            <KeyAttribute
+                android:scaleY="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/btn_unfav" />
 
 
         </KeyFrameSet>
@@ -96,5 +114,9 @@
             android:layout_height="1dp"
             android:layout_width="match_parent"
             android:id="@+id/btn_fav"/>
+        <Constraint
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:id="@+id/btn_unfav"/>
     </ConstraintSet>
 </MotionScene>

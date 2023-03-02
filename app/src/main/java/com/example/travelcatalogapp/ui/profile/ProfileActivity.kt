@@ -1,7 +1,6 @@
 package com.example.travelcatalogapp.ui.profile
 
 import android.os.Bundle
-import com.bumptech.glide.Glide
 import com.crocodic.core.extension.openActivity
 import com.example.travelcatalogapp.R
 import com.example.travelcatalogapp.base.BaseActivity
@@ -27,11 +26,6 @@ class ProfileActivity :
             binding.user = user
         }
 
-        //Preview Image Profile
-        Glide
-            .with(this)
-            .load(user?.image)
-            .into(binding.ivProfile)
 
         //Button Edit Profile
         binding.btnEditProfile.setOnClickListener {
@@ -41,6 +35,8 @@ class ProfileActivity :
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
             openActivity<LoginActivity>()
+            finishAffinity()
+
         }
 
         binding.ivBack.setOnClickListener {

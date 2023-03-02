@@ -2,12 +2,12 @@ package com.example.travelcatalogapp.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
 import com.crocodic.core.base.adapter.CoreListAdapter
 import com.crocodic.core.extension.openActivity
 import com.denzcoskun.imageslider.ImageSlider
@@ -30,13 +30,14 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home),
-SearchView.OnQueryTextListener{
+    SearchView.OnQueryTextListener {
 
     @Inject
     lateinit var session: Session
 
     private var tour = ArrayList<Tour?>()
     private var tourAll = ArrayList<Tour?>()
+    private var tourClass: Tour? = null
 
 
     override fun onStart() {
@@ -58,7 +59,7 @@ SearchView.OnQueryTextListener{
 
 
 //SearchView Function
-        binding?.searchView?.doOnTextChanged { text, start, before, count ->
+        binding.searchView.doOnTextChanged { text, start, before, count ->
             if (text!!.isNotEmpty()) {
                 val filter = tourAll.filter { it?.name?.contains("$text", true) == true }
 //                val filteringData =
@@ -72,6 +73,13 @@ SearchView.OnQueryTextListener{
                 binding?.rvHome?.adapter?.notifyDataSetChanged()
                 binding?.rvHome?.adapter?.notifyItemInserted(0)
 
+                if (filter.isEmpty()) {
+                    binding.tvDataKosong.visibility = View.VISIBLE
+                } else {
+                    binding.tvDataKosong.visibility = View.GONE
+
+                }
+
             } else {
                 tour.clear()
                 binding?.rvHome?.adapter?.notifyDataSetChanged()
@@ -84,6 +92,7 @@ SearchView.OnQueryTextListener{
         binding.ivProfile.setOnClickListener {
             openActivity<ProfileActivity>()
         }
+
 
         //Button Category Nature
         binding.btnNature.setOnClickListener {
@@ -120,15 +129,7 @@ SearchView.OnQueryTextListener{
                     putExtra(Cons.TOUR.TOUR, data)
                 }
             }
-        //Preview Image Profile
-        Glide
-            .with(this)
-            .load(user?.image)
-            .into(binding.ivProfile)
 
-//        Preview Image Slider
-//        imageList.add(SlideModel("https://magang.crocodic.net/ki/kelompok_3/tour-app/public/image/qacdaVHctsSD3xZfdpBoSq1lfVTZpFEYs55Uypzf.jpg"))
-//        imageList.add(SlideModel("https://magang.crocodic.net/ki/kelompok_3/tour-app/public/image/fXl0LUhqAZ1jS4vOOGvQ7oX7fJ6LlwcRwbGB6HCI.jpg"))
 
         val imageSlider = findViewById<ImageSlider>(R.id.imageSlider)
         imageSlider.setImageList(imageList)
@@ -184,7 +185,7 @@ SearchView.OnQueryTextListener{
     private fun initSlider(data: List<ImageSlide>) {
         val imageList = ArrayList<SlideModel>()
         data.forEach {
-            imageList.add(SlideModel(it.image))
+            imageList.add(SlideModel(it.image, tourClass?.name))
         }
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }

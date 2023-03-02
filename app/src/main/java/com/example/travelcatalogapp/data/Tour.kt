@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 class Tour(
     @Expose
     @SerializedName("id")
-    val id: String?,
+    val id: Int?,
     @Expose
     @SerializedName("name")
     val name: String,
@@ -39,5 +39,5 @@ class Tour(
     val updatedAt: String,
     @Expose
     @SerializedName("like")
-    val like: String,
+    val like: Boolean,
 ) : Parcelable
