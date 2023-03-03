@@ -22,8 +22,8 @@ class DetailViewModel @Inject constructor(
     private val session: Session
 ) : BaseViewModel() {
 
-    //Favourite
-    fun favouriteTour(tourId : Int) = viewModelScope.launch {
+    //Favourite Function
+    fun favouriteTour(tourId: Int) = viewModelScope.launch {
         ApiObserver({ apiService.postFavourite(tourId) },
             false, object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {

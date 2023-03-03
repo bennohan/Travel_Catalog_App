@@ -28,47 +28,49 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
         adapter()
         getData()
 
-        binding.swipelayout.setOnRefreshListener {
+        //Swipe Refresh Layout
+        binding.swipeLayout.setOnRefreshListener {
             getData()
             observe()
             adapter()
         }
 
-
+        // Button Back
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        getData()
-
-        binding.btnBack.setOnClickListener {
-            onBackPressed()
-        }
     }
 
+    //Function GetData
     private fun getData() {
         when (intent.getIntExtra(Cons.CATEGORY.ID, 0)) {
             1 -> {
+                //Receive Nature list from id 1
                 tourNature()
                 binding.tvCategory.text = "Nature"
             }
             2 -> {
+                //Receive Park list from id 2
                 tourPark()
                 binding.tvCategory.text = "Park "
 
             }
             3 -> {
+                //Receive All list from id 3
                 tourAll()
                 binding.tvCategory.text = "All"
 
             }
             4 -> {
+                //Receive Recommendation list from id 1
                 tourRec()
-                binding.tvCategory.text = "Recomendation"
+                binding.tvCategory.text = "Recommendation"
             }
         }
     }
 
+    // Recycler View Adapter
     private fun adapter() {
         binding.rvList.adapter =
             object : CoreListAdapter<ListItemBinding, Tour>(R.layout.list_item) {
@@ -81,7 +83,7 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
 //                    holder.binding.ivFavourite.isVisible = data?.like == true
 
-//                    val like = tourclass?.like
+//                    val like = ?.like
 //                    when (like){
 //                        true -> holder.binding.ivFavourite.visibility
 //                        else -> holder.binding.ivFavourite.isInvisible
@@ -97,12 +99,13 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
             }.initItem(tour)
     }
 
+    //Function Observe
     private fun observe() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.tour.observe(this@ListActivity) {
-                        binding.swipelayout.isRefreshing = false
+                        binding.swipeLayout.isRefreshing = false
                         tour.clear()
                         tour.addAll(it)
                         binding.rvList.adapter?.notifyDataSetChanged()
@@ -115,18 +118,19 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
     }
 
+    //Function Tour Nature
     private fun tourNature() {
         viewModel.tourListNature()
     }
-
+    //Function Tour Park
     private fun tourPark() {
         viewModel.tourListPark()
     }
-
+    //Function Tour All
     private fun tourAll() {
         viewModel.tourListAll()
     }
-
+    //Function Tour Recommendation
     private fun tourRec() {
         viewModel.tourListRec()
     }

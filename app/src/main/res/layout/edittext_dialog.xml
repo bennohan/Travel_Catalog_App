@@ -19,18 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:text='@{user.name}'
             android:hint="Edit Name Here.."
-            android:padding="@dimen/_4sdp" />
+            android:padding="@dimen/_4sdp"
+            android:text='@{user.name}' />
 
         <EditText
             android:id="@+id/et_inputPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:text='@{user.phoneNumber}'
             android:hint="Edit Phone Here.."
-            android:padding="@dimen/_4sdp" />
+            android:padding="@dimen/_4sdp"
+            android:text='@{user.phoneNumber}' />
 
     </LinearLayout>
 </layout>

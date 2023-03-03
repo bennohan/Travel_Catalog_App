@@ -26,6 +26,7 @@ class EditProfileViewModel @Inject constructor(
     private val session: Session
 ) : BaseViewModel() {
 
+    //Function Update Profile
     fun updateUser(name: String, phone: String, method: String) = viewModelScope.launch {
         ApiObserver({ apiService.userUpdate(method, name, phone) },
             false, object : ApiObserver.ResponseListener {
@@ -44,6 +45,7 @@ class EditProfileViewModel @Inject constructor(
             })
     }
 
+    //Function Update Profile Photo
     fun updateUserWithPhoto(name: String, phone: String, method: String, photo: File) =
         viewModelScope.launch {
             val fileBody = photo.asRequestBody("multipart/form-data".toMediaTypeOrNull())

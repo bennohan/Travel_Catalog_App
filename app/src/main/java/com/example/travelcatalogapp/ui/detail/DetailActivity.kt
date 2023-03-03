@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
 import com.crocodic.core.extension.tos
 import com.example.travelcatalogapp.R
 import com.example.travelcatalogapp.base.BaseActivity
@@ -22,6 +21,11 @@ class DetailActivity :
 
     private var tour: Tour? = null
 
+    override fun onStart() {
+        super.onStart()
+        tourData()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,19 +33,20 @@ class DetailActivity :
 
 
         maplocation()
+        tourData()
 
-        //Reciving TourData
-        tour = intent.getParcelableExtra(Cons.TOUR.TOUR)
-        binding.data = tour
 
         //Button Back
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
+
+        //Set Route Button
         binding.btnRoute.setOnClickListener {
             sendLocationIntent()
         }
 
+        //Favourite Button
         binding.btnFav.setOnClickListener {
             tos("Tour Liked")
             val tourId = tour?.id
@@ -50,14 +55,21 @@ class DetailActivity :
             }
         }
 
+        // UnFavourite Button
         binding.btnUnfav.setOnClickListener {
-            tos("Tour Unliked")
+            tos("Tour Disliked")
             val tourId = tour?.id
             if (tourId != null) {
                 viewModel.favouriteTour(tourId)
             }
         }
 
+    }
+
+    private fun tourData() {
+        //Receiving TourData
+        tour = intent.getParcelableExtra(Cons.TOUR.TOUR)
+        binding.data = tour
     }
 
     override fun onResume() {
@@ -106,16 +118,6 @@ class DetailActivity :
         }
     }
 
-    private fun initialButtonLike() {
-        if (tour?.like?.equals("true") == true) {
-            binding.btnFav.visibility = View.GONE
-            binding.btnUnfav.visibility = View.VISIBLE
-        }else{
-            binding.btnFav.visibility = View.VISIBLE
-            binding.btnUnfav.visibility = View.GONE
-
-        }
-    }
 
     //Sending location to Open Google Maps
     private fun sendLocationIntent() {

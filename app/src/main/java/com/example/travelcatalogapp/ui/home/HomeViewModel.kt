@@ -29,10 +29,10 @@ class HomeViewModel
 
     //tour list Function
     fun tourList() = viewModelScope.launch {
-        ApiObserver({ apiService.tourList()},false, object : ApiObserver.ResponseListener{
+        ApiObserver({ apiService.tourList() }, false, object : ApiObserver.ResponseListener {
             override suspend fun onSuccess(response: JSONObject) {
                 val status = response.getInt(ApiCode.STATUS)
-                if (status == ApiCode.SUCCESS){
+                if (status == ApiCode.SUCCESS) {
 
                     val data = response.getJSONArray(ApiCode.DATA).toList<Tour>(gson)
                     tour.postValue(data)
@@ -46,10 +46,10 @@ class HomeViewModel
 
     //Function Image Slider
     fun imageSlider() = viewModelScope.launch {
-        ApiObserver({ apiService.imageSlider()},false, object : ApiObserver.ResponseListener{
+        ApiObserver({ apiService.imageSlider() }, false, object : ApiObserver.ResponseListener {
             override suspend fun onSuccess(response: JSONObject) {
                 val status = response.getInt(ApiCode.STATUS)
-                if (status == ApiCode.SUCCESS){
+                if (status == ApiCode.SUCCESS) {
 
                     val dataImage = response.getJSONArray(ApiCode.DATA).toList<ImageSlide>(gson)
 

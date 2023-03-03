@@ -23,6 +23,7 @@ class ListViewModel @Inject constructor(
 ) : BaseViewModel() {
     var tour = MutableLiveData<List<Tour>>()
 
+    //Function get Tour List Nature
     fun tourListNature() = viewModelScope.launch {
         ApiObserver({ apiService.tourCategoryNature() },
             false, object : ApiObserver.ResponseListener {
@@ -39,8 +40,7 @@ class ListViewModel @Inject constructor(
             })
     }
 
-
-
+    //Function get Tour List Park
     fun tourListPark() = viewModelScope.launch {
         ApiObserver({ apiService.tourCategoryPark() },
             false, object : ApiObserver.ResponseListener {
@@ -57,7 +57,7 @@ class ListViewModel @Inject constructor(
             })
     }
 
-    //tour list All Function
+    //Function get Tour List All
     fun tourListAll() = viewModelScope.launch {
         ApiObserver({ apiService.tourCategoryAll() },
             false, object : ApiObserver.ResponseListener {
@@ -74,6 +74,7 @@ class ListViewModel @Inject constructor(
             })
     }
 
+    //Function get Tour List Recommendation
     fun tourListRec() = viewModelScope.launch {
         ApiObserver({ apiService.tourList() },
             false, object : ApiObserver.ResponseListener {

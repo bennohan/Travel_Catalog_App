@@ -21,14 +21,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Button Login
         binding.btnLogin.setOnClickListener {
+            //Show alert if Text View is Empty
             if (binding.etPhone.isEmptyRequired(R.string.mustFill) || binding.etPassword.isEmptyRequired(R.string.mustFill)
             ) {
                 return@setOnClickListener
             }
-            val phone = binding.etPhone.textOf()
-            val password = binding.etPassword.textOf()
-            viewModel.login(phone, password)
+            //Calling Function Login
+            login()
         }
 
         lifecycleScope.launch {
@@ -53,5 +54,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
                 }
             }
         }
+    }
+
+    //Function Login
+    private fun login(){
+        val phone = binding.etPhone.textOf()
+        val password = binding.etPassword.textOf()
+        //Function login from viewModel
+        viewModel.login(phone, password)
     }
 }

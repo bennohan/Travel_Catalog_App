@@ -1,7 +1,6 @@
 package com.example.travelcatalogapp.injection
 
 import android.content.Context
-import com.crocodic.core.data.CoreSession
 import com.crocodic.core.helper.okhttp.SSLTrust
 import com.example.travelcatalogapp.api.ApiService
 import com.example.travelcatalogapp.data.Cons
@@ -20,7 +19,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 import javax.net.ssl.SSLContext
 
 @InstallIn(SingletonComponent::class)
@@ -36,32 +34,32 @@ class DataModule {
 
 
     @Provides
-    fun provideOkHttpClient(session : Session): OkHttpClient{
+    fun provideOkHttpClient(session: Session): OkHttpClient {
 
         val unSafeTrustManager = SSLTrust().createUnsafeTrustManager()
         val sslContext = SSLContext.getInstance("SSL")
-        sslContext.init(null, arrayOf(unSafeTrustManager),null)
+        sslContext.init(null, arrayOf(unSafeTrustManager), null)
 
         val okHttpClient = OkHttpClient().newBuilder()
             .sslSocketFactory(sslContext.socketFactory, unSafeTrustManager)
-            .connectTimeout(90,TimeUnit.SECONDS)
+            .connectTimeout(90, TimeUnit.SECONDS)
             .readTimeout(90, TimeUnit.SECONDS)
-            .writeTimeout(90,TimeUnit.SECONDS)
+            .writeTimeout(90, TimeUnit.SECONDS)
 
-            .addInterceptor {  chain ->
+            .addInterceptor { chain ->
                 val original = chain.request()
                 val token = session.getString(Cons.TOKEN.API_TOKEN)
                 val requestBuilder = original.newBuilder()
                     .header("Authorization", "Bearer $token")
-                    .header("Content-Type","application/json")
-                    .method(original.method,original.body)
+                    .header("Content-Type", "application/json")
+                    .method(original.method, original.body)
 
                 val request = requestBuilder.build()
                 chain.proceed(request)
             }
 
 
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             val interceptors = HttpLoggingInterceptor()
             interceptors.level = HttpLoggingInterceptor.Level.BODY
             okHttpClient.addInterceptor(interceptors)

@@ -29,7 +29,6 @@ class LoginViewModel
         phone: String,
         password: String,
     ) = viewModelScope.launch {
-//        _apiResponse.send(ApiResponse().responseLoading())
         ApiObserver({ apiService.login(phone, password) },
             false, object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
@@ -37,7 +36,6 @@ class LoginViewModel
                     val token = response.getString("token")
                     session.setValue(Cons.TOKEN.API_TOKEN,token)
                     session.saveUser(data)
-//                    val message = response.getString("info")
                     _apiResponse.send(ApiResponse().responseSuccess())
 
                 }
@@ -46,10 +44,6 @@ class LoginViewModel
                     super.onError(response)
                     _apiResponse.send(ApiResponse().responseError())
 
-//                    val responseError = response.rawResponse
-//                    val responseJson = responseError?.let { JSONObject(it) }
-//                    val message = responseJson?.getString("info")
-//                    _apiResponse.send(ApiResponse(ApiStatus.ERROR, message))
                 }
             })
     }

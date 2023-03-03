@@ -87,10 +87,12 @@ class EditProfileActivity :
             showAlertDialogButtonClicked()
         }
 
+        //Button Save
         binding.btnSave.setOnClickListener {
             validateForm()
         }
 
+        //Photo Button
         binding.ivPhoto.setOnClickListener {
             if (checkPermissionGallery()) {
                 openGallery()
@@ -128,6 +130,7 @@ class EditProfileActivity :
         }
     }
 
+    //Function Validate Form
     private fun validateForm() {
         val name = binding.tvName.textOf()
         val phone = binding.tvPhone.textOf()
@@ -362,11 +365,11 @@ class EditProfileActivity :
         return file
     }
 
-    suspend fun compressFile(filePhoto: File): File? {
+    private suspend fun compressFile(filePhoto: File): File? {
         println("Compress 1")
-        try {
+        return try {
             println("Compress 2")
-            return Compressor.compress(this, filePhoto) {
+            Compressor.compress(this, filePhoto) {
                 resolution(720, 720)
                 quality(50)
                 format(Bitmap.CompressFormat.JPEG)
@@ -376,7 +379,7 @@ class EditProfileActivity :
             println("Compress 3")
             tos("Gagal kompress")
             e.printStackTrace()
-            return null
+            null
         }
 
     }

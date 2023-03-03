@@ -84,7 +84,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 tour.clear()
                 binding?.rvHome?.adapter?.notifyDataSetChanged()
                 tour.addAll(tourAll)
-                Log.d("ceknoteall", "noteall : $tourAll")
+                Log.d("checkNoteAll", "noteAll : $tourAll")
                 binding?.rvHome?.adapter?.notifyItemInserted(0)
             }
         }
@@ -131,6 +131,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
             }
 
 
+        //Variable Image slider
         val imageSlider = findViewById<ImageSlider>(R.id.imageSlider)
         imageSlider.setImageList(imageList)
 
@@ -161,6 +162,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         viewModel.tourList()
     }
 
+    //Function Observe
     private fun observe() {
         viewModel.tour.observe(this) {
             //Before i gave this the data is empty
@@ -178,10 +180,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         }
     }
 
-    fun getImage() {
+    //Get Image Slider Function
+    private fun getImage() {
         viewModel.imageSlider()
     }
 
+    //Init Slider Function
     private fun initSlider(data: List<ImageSlide>) {
         val imageList = ArrayList<SlideModel>()
         data.forEach {

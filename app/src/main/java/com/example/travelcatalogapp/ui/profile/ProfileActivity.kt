@@ -21,6 +21,7 @@ class ProfileActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Get User Data From session
         val user = session.getUser()
         if (user != null) {
             binding.user = user
@@ -32,6 +33,7 @@ class ProfileActivity :
             openActivity<EditProfileActivity>()
         }
 
+        //Button Logout
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
             openActivity<LoginActivity>()
@@ -39,6 +41,7 @@ class ProfileActivity :
 
         }
 
+        //Button Back
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }

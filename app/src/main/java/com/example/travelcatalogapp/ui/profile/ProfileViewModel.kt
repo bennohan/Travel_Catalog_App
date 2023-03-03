@@ -19,6 +19,7 @@ class ProfileViewModel
     private val session: Session
 ) : BaseViewModel() {
 
+    //Function logout
     fun logout() = viewModelScope.launch {
         ApiObserver({ apiService.logout() },
             false, object : ApiObserver.ResponseListener {
