@@ -1,6 +1,8 @@
 package com.example.travelcatalogapp.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.SearchView
@@ -56,38 +58,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         observe()
         getTourList()
         getImage()
+        search()
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            getTourList()
+        },0)
 
 //SearchView Function
-        binding.searchView.doOnTextChanged { text, start, before, count ->
-            if (text!!.isNotEmpty()) {
-                val filter = tourAll.filter { it?.name?.contains("$text", true) == true }
-//                val filteringData =
-//                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
-                Log.d("CekFilter", "Keyword $text Data : $filter")
-                tour.clear()
-//                note.addAll(filter)
-                filter.forEach {
-                    tour.add(it)
-                }
-                binding?.rvHome?.adapter?.notifyDataSetChanged()
-                binding?.rvHome?.adapter?.notifyItemInserted(0)
-
-                if (filter.isEmpty()) {
-                    binding.tvDataKosong.visibility = View.VISIBLE
-                } else {
-                    binding.tvDataKosong.visibility = View.GONE
-
-                }
-
-            } else {
-                tour.clear()
-                binding?.rvHome?.adapter?.notifyDataSetChanged()
-                tour.addAll(tourAll)
-                Log.d("checkNoteAll", "noteAll : $tourAll")
-                binding?.rvHome?.adapter?.notifyItemInserted(0)
-            }
-        }
         //Button Image View
         binding.ivProfile.setOnClickListener {
             openActivity<ProfileActivity>()
@@ -194,5 +171,37 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
     }
 
+    private fun search() {
+        binding.searchView.doOnTextChanged { text, start, before, count ->
+            if (text!!.isNotEmpty()) {
+                val filter = tourAll.filter { it?.name?.contains("$text", true) == true }
+//                val filteringData =
+//                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
+                Log.d("CekFilter", "Keyword $text Data : $filter")
+                tour.clear()
+//                note.addAll(filter)
+                filter.forEach {
+                    tour.add(it)
+                }
+                binding?.rvHome?.adapter?.notifyDataSetChanged()
+                binding?.rvHome?.adapter?.notifyItemInserted(0)
+
+                if (filter.isEmpty()) {
+                    binding.tvDataKosong.visibility = View.VISIBLE
+                } else {
+                    binding.tvDataKosong.visibility = View.GONE
+
+                }
+
+            } else {
+                tour.clear()
+                binding?.rvHome?.adapter?.notifyDataSetChanged()
+                tour.addAll(tourAll)
+                Log.d("checkNoteAll", "noteAll : $tourAll")
+                binding?.rvHome?.adapter?.notifyItemInserted(0)
+            }
+        }
+
+    }
 
 }

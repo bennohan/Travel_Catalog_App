@@ -8,7 +8,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
-
     @Expose
     @SerializedName("id")
     val id: Int?,

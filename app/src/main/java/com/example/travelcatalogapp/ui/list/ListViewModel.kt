@@ -91,4 +91,20 @@ class ListViewModel @Inject constructor(
             })
     }
 
+    fun tourListPath( tourId : Int?) = viewModelScope.launch {
+        ApiObserver({ apiService.tourCategory( tourId) },
+            false, object : ApiObserver.ResponseListener {
+                override suspend fun onSuccess(response: JSONObject) {
+                    val status = response.getInt(ApiCode.STATUS)
+                    if (status == ApiCode.SUCCESS) {
+                        val data = response.getJSONArray(ApiCode.DATA).toList<Tour>(gson)
+                        tour.postValue(data)
+
+                    } else {
+                        val message = response.getString(ApiCode.MESSAGE)
+                    }
+                }
+            })
+    }
+
 }

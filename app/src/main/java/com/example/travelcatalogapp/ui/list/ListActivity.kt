@@ -1,6 +1,8 @@
 package com.example.travelcatalogapp.ui.list
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -22,17 +24,25 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
     private var tour = ArrayList<Tour?>()
 
+    override fun onStart() {
+        super.onStart()
+        getData()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observe()
         adapter()
         getData()
+//        looperData()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            getData()
+        },0)
 
         //Swipe Refresh Layout
         binding.swipeLayout.setOnRefreshListener {
             getData()
-            observe()
-            adapter()
         }
 
         // Button Back
@@ -44,29 +54,20 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
 
     //Function GetData
     private fun getData() {
-        when (intent.getIntExtra(Cons.CATEGORY.ID, 0)) {
-            1 -> {
-                //Receive Nature list from id 1
-                tourNature()
-                binding.tvCategory.text = "Nature"
-            }
-            2 -> {
-                //Receive Park list from id 2
-                tourPark()
-                binding.tvCategory.text = "Park "
+        val idCategory = intent.getIntExtra(Cons.CATEGORY.ID, 0)
+//        viewModel.tourListPath(if ( idCategory > 3) null else idCategory)
+        if (idCategory == 4) {
+            tourRec()
+        } else {
+            viewModel.tourListPath(idCategory)
+        }
 
-            }
-            3 -> {
-                //Receive All list from id 3
-                tourAll()
-                binding.tvCategory.text = "All"
+        binding.tvCategory.text = when (idCategory) {
+            1 -> "Nature"
+            2 -> "Park"
+            3 -> "All"
+            else -> "Recommendation"
 
-            }
-            4 -> {
-                //Receive Recommendation list from id 1
-                tourRec()
-                binding.tvCategory.text = "Recommendation"
-            }
         }
     }
 
@@ -122,16 +123,40 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>(R.layout.a
     private fun tourNature() {
         viewModel.tourListNature()
     }
+
     //Function Tour Park
     private fun tourPark() {
         viewModel.tourListPark()
     }
+
     //Function Tour All
     private fun tourAll() {
         viewModel.tourListAll()
     }
+
     //Function Tour Recommendation
     private fun tourRec() {
         viewModel.tourListRec()
     }
+
+    private fun tourPath() {
+//        viewModel.tourListPath()
+    }
+
+//    private fun looperData() {
+//        tos("looperData")
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            getData()
+//        }, 3000)
+//    }
+//    override fun onPause() {
+//        super.onPause()
+//        getData()
+//    }
+//    override fun onResume() {
+//        super.onResume()
+//        tos("onResume")
+//        getData()
+//    }
+
 }

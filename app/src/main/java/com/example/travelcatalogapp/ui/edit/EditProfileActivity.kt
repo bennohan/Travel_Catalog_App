@@ -175,12 +175,12 @@ class EditProfileActivity :
         builder.setView(customLayout)
 
         // add a button
+        val editTextName = customLayout.findViewById<EditText>(R.id.et_inputName)
+        val editTextPhone = customLayout.findViewById<EditText>(R.id.et_inputPhone)
+        editTextName.setText(session.getUser()?.name)
+        editTextPhone.setText(session.getUser()?.phoneNumber)
         builder.setPositiveButton("OK") { dialog: DialogInterface?, which: Int ->
             // send data from the AlertDialog to the Activity
-            val editTextName = customLayout.findViewById<EditText>(R.id.et_inputName)
-            val editTextPhone = customLayout.findViewById<EditText>(R.id.et_inputPhone)
-            editTextName.setText(session.getUser()?.name)
-            editTextPhone.setText(session.getUser()?.phoneNumber)
             sendDialogDataToActivityName(editTextName.text.toString())
             sendDialogDataToActivityPhone(editTextPhone.text.toString())
 

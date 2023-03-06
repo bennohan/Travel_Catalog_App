@@ -46,7 +46,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
                             }
                             ApiStatus.ERROR -> {
                                 loadingDialog.dismiss()
-                                tos(it.message ?: "login Failed")
+                                tos(it.message ?: "Login Failed")
+                                tos(it.message ?: "Please Check Your Phone And Password Again")
                             }
                             else -> loadingDialog.setResponse("Else")
                         }

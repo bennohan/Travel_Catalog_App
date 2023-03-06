@@ -27,10 +27,13 @@ class MainActivity :NoViewModelActivity<ActivityMainBinding>(R.layout.activity_m
             val isUser = session.getUser()
             if (isUser == null){
                 openActivity<LoginActivity>()
+                finish()
             }else{
                 openActivity<HomeActivity>()
+                finish()
+
             }
-        },4000)
+        },3000)
 
     }
 }
